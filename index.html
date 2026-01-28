@@ -1,31 +1,56 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Sunita Garments</title>
   <meta charset="UTF-8">
+  <title>Sunita Garments</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body {
-      font-family: Arial;
+    body{font-family:Arial;background:#f2f2f2;margin:0}
+    header{background:#131921;color:#fff;padding:10px}
+    header h2{margin:0}
+    .search{width:100%;padding:8px;margin-top:8px}
+    .category{padding:10px}
+    .category button{margin:4px;padding:6px 10px}
+    .products{display:flex;flex-wrap:wrap;justify-content:center}
+    .product{
+      background:#fff;width:160px;margin:8px;padding:8px;
+      border-radius:6px;box-shadow:0 2px 5px rgba(0,0,0,.1);
+      text-align:center
     }
-    .product {
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin: 10px;
-      max-width: 220px;
+    .product img{width:100%;border-radius:4px}
+    .btn{background:#ff9900;border:none;padding:6px 10px;margin-top:5px}
+    .cart{
+      position:fixed;bottom:0;left:0;right:0;
+      background:#fff;border-top:1px solid #ccc;padding:10px
     }
-    img {
-      width: 100%;
-    }
+    .cart button{background:#25D366;color:#fff;border:none;padding:8px 12px}
   </style>
 </head>
+
 <body>
 
-<h1>Sunita Garments</h1>
-<p>Yahan ladies suits, sarees aur shopping items milenge.</p>
+<header>
+  <h2>🛍️ Sunita Garments</h2>
+  <input id="search" class="search" placeholder="Search products...">
+</header>
 
-<div id="product-list"></div>
+<div class="category">
+  <button onclick="filterCat('All')">All</button>
+  <button onclick="filterCat('Kurti')">Kurti</button>
+  <button onclick="filterCat('Suit')">Suit</button>
+  <button onclick="filterCat('Lehenga')">Lehenga</button>
+</div>
+
+<div id="products" class="products"></div>
+
+<div class="cart">
+  🛒 Cart Items: <span id="cartCount">0</span> |
+  Total ₹<span id="cartTotal">0</span>
+  <br><br>
+  <button onclick="orderWhatsApp()">Order on WhatsApp</button>
+</div>
 
 <script src="script.js"></script>
 </body>
 </html>
-<script src="script.js"></script>
