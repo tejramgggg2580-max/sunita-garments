@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel - Sunita Garments</title>
+</head>
+<body style="font-family:Arial;padding:20px">
+
+<h2>🔐 Admin Panel</h2>
+
+<input id="name" placeholder="Product Name"><br><br>
+<input id="price" placeholder="Price"><br><br>
+<input id="cat" placeholder="Category"><br><br>
+<input id="img" placeholder="Image Link"><br><br>
+
+<button onclick="add()">➕ Add Product</button>
+
+<pre id="out"></pre>
+
+<script>
+let products = [];
+
+function add(){
+  products.push({
+    name: name.value,
+    price: Number(price.value),
+    category: cat.value,
+    image: img.value
+  });
+  out.innerText = JSON.stringify(products, null, 2);
+}
+</script>
+
+<p>⬆️ Is output ko <b>script.js</b> me paste karke save karo</p>
+
+</body>
+</html>
