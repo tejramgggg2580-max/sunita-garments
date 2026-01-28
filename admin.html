@@ -1,37 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="hi">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Admin Panel - Sunita Garments</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body{font-family:Arial;margin:0;background:#f5f5f5;padding:15px}
+    h2{margin-top:0}
+    .box{background:#fff;padding:15px;border-radius:6px;margin-bottom:12px}
+    input,select,button{width:100%;padding:10px;margin:6px 0}
+    button{background:#131921;color:#fff;border:none;border-radius:4px}
+    .list div{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding:8px 0}
+    .list small{color:#666}
+    .danger{background:#e53935}
+  </style>
 </head>
-<body style="font-family:Arial;padding:20px">
+<body>
 
-<h2>🔐 Admin Panel</h2>
+<h2>🔐 Admin Login</h2>
 
-<input id="name" placeholder="Product Name"><br><br>
-<input id="price" placeholder="Price"><br><br>
-<input id="cat" placeholder="Category"><br><br>
-<input id="img" placeholder="Image Link"><br><br>
+<div id="login" class="box">
+  <input id="pass" type="password" placeholder="Enter Password">
+  <button onclick="login()">Login</button>
+</div>
 
-<button onclick="add()">➕ Add Product</button>
+<div id="panel" style="display:none">
 
-<pre id="out"></pre>
+  <div class="box">
+    <h3>➕ Add / Edit Product</h3>
+    <input id="name" placeholder="Product Name">
+    <select id="cat">
+      <option>Dresses</option>
+      <option>Tops</option>
+      <option>Salwar Suit</option>
+    </select>
+    <input id="price" placeholder="Price">
+    <input id="old" placeholder="Old Price">
+    <input type="file" id="img" accept="image/*" capture="camera">
+    <button onclick="save()">Save Product</button>
+  </div>
 
-<script>
-let products = [];
+  <div class="box">
+    <h3>📦 Products</h3>
+    <div id="list" class="list"></div>
+  </div>
 
-function add(){
-  products.push({
-    name: name.value,
-    price: Number(price.value),
-    category: cat.value,
-    image: img.value
-  });
-  out.innerText = JSON.stringify(products, null, 2);
-}
-</script>
+</div>
 
-<p>⬆️ Is output ko <b>script.js</b> me paste karke save karo</p>
-
+<script src="admin.js"></script>
 </body>
 </html>
