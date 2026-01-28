@@ -1,55 +1,31 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="hi">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Sunita Garments</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body{font-family:Arial;background:#f2f2f2;margin:0}
-    header{background:#131921;color:#fff;padding:10px}
-    header h2{margin:0}
-    .search{width:100%;padding:8px;margin-top:8px}
-    .category{padding:10px}
-    .category button{margin:4px;padding:6px 10px}
-    .products{display:flex;flex-wrap:wrap;justify-content:center}
-    .product{
-      background:#fff;width:160px;margin:8px;padding:8px;
-      border-radius:6px;box-shadow:0 2px 5px rgba(0,0,0,.1);
-      text-align:center
-    }
-    .product img{width:100%;border-radius:4px}
-    .btn{background:#ff9900;border:none;padding:6px 10px;margin-top:5px}
-    .cart{
-      position:fixed;bottom:0;left:0;right:0;
-      background:#fff;border-top:1px solid #ccc;padding:10px
-    }
-    .cart button{background:#25D366;color:#fff;border:none;padding:8px 12px}
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-<header>
-  <h2>🛍️ Sunita Garments</h2>
-  <input id="search" class="search" placeholder="Search products...">
+<header class="top">
+  <h1>Sunita Garments</h1>
+  <input id="search" placeholder="Search products…" />
 </header>
 
-<div class="category">
+<div class="cats">
   <button onclick="filterCat('All')">All</button>
-  <button onclick="filterCat('Kurti')">Kurti</button>
-  <button onclick="filterCat('Suit')">Suit</button>
-  <button onclick="filterCat('Lehenga')">Lehenga</button>
+  <button onclick="filterCat('Dresses')">Dresses</button>
+  <button onclick="filterCat('Tops')">Tops</button>
+  <button onclick="filterCat('Salwar Suit')">Salwar Suit</button>
 </div>
 
-<div id="products" class="products"></div>
+<main id="grid" class="grid"></main>
 
-<div class="cart">
-  🛒 Cart Items: <span id="cartCount">0</span> |
-  Total ₹<span id="cartTotal">0</span>
-  <br><br>
-  <button onclick="orderWhatsApp()">Order on WhatsApp</button>
-</div>
+<footer class="bottom">
+  <button onclick="orderWA()">Order on WhatsApp</button>
+  <span>UPI: tamilsunita51@okhdfcbank</span>
+</footer>
 
 <script src="script.js"></script>
 </body>
