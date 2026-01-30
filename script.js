@@ -1,29 +1,68 @@
-const productList = document.getElementById("product-list");
+// Product list container
+const productList = document.getElementById("grid");
 
+// LocalStorage se products lo (admin panel se save hote hain)
 let products = JSON.parse(localStorage.getItem("products")) || [];
 
-if(products.length === 0){
-  productList.innerHTML = "<p>No products available</p>";
+// Search box
+const searchInput = document.getElementById("search");
+
+// Default category
+let currentCat = "All";
+
+// Show products function
+function showProducts() {
+  productList.innerHTML = "";
+
+  let filtered = products.filter(p => {
+    let matchCat = currentCat === "All" || p.category === currentCat;
+    let matchSearch = !searchInput.value || 
+      p.title.toLowerCase().includes(searchInput.value.toLowerCase());
+    return matchCat && matchSearch;
+  });
+
+  if (filtered.length === 0) {
+    productList.innerHTML = "<p>No products found</p>";
+    return;
+  }
+
+  filtered.forEach(p => {
+    const div = document.createElement("div");
+    div.className = "card";
+
+    div.innerHTML = `
+      <img src="${p.image}" alt="${p.title}">
+      <h4>${p.title}</h4>
+      <p class="price">
+        ₹${p.price}
+        <del>₹${p.oldPrice}</del>
+      </p>
+      <button onclick="orderWA('${p.title}')">
+        Order on WhatsApp
+      </button>
+    `;
+
+    productList.appendChild(div);
+  });
 }
 
-products.forEach((p, index) => {
-  const div = document.createElement("div");
-  div.style.border = "1px solid #ccc";
-  div.style.margin = "10px";
-  div.style.padding = "10px";
+// Category filter
+function filterCat(cat) {
+  currentCat = cat;
+  showProducts();
+}
 
-  div.innerHTML = `
-    <img src="${p.img}" style="width:100%;max-height:200px;object-fit:cover">
-    <h3>${p.name}</h3>
-    <p>${p.cat}</p>
-    <p>
-      <b>₹${p.price}</b>
-      <del>₹${p.old}</del>
-    </p>
-    <a href="https://wa.me/919982104506?text=I want ${p.name}">
-      <button>Order on WhatsApp</button>
-    </a>
-  `;
+// WhatsApp order
+function orderWA(title) {
+  const number = "919982104506";
+  const msg = `Hello Sunita Garments, I want to order: ${title}`;
+  window.open(`https://wa.me/${number}?text=${encodeURIComponent(msg)}`);
+}
 
-  productList.appendChild(div);
-});
+// Search listener
+if (searchInput) {
+  searchInput.addEventListener("input", showProducts);
+}
+
+// Initial load
+showProducts();
