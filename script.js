@@ -1,68 +1,53 @@
-// Product list container
-const productList = document.getElementById("grid");
-
-// LocalStorage se products lo (admin panel se save hote hain)
-let products = JSON.parse(localStorage.getItem("products")) || [];
-
-// Search box
+const grid = document.getElementById("grid");
 const searchInput = document.getElementById("search");
 
-// Default category
-let currentCat = "All";
+let products = JSON.parse(localStorage.getItem("products")) || [];
 
-// Show products function
-function showProducts() {
-  productList.innerHTML = "";
+function renderProducts(list) {
+  grid.innerHTML = "";
 
-  let filtered = products.filter(p => {
-    let matchCat = currentCat === "All" || p.category === currentCat;
-    let matchSearch = !searchInput.value || 
-      p.title.toLowerCase().includes(searchInput.value.toLowerCase());
-    return matchCat && matchSearch;
-  });
-
-  if (filtered.length === 0) {
-    productList.innerHTML = "<p>No products found</p>";
+  if (list.length === 0) {
+    grid.innerHTML = "<p>No products found</p>";
     return;
   }
 
-  filtered.forEach(p => {
+  list.forEach(p => {
     const div = document.createElement("div");
     div.className = "card";
 
     div.innerHTML = `
       <img src="${p.image}" alt="${p.title}">
-      <h4>${p.title}</h4>
-      <p class="price">
-        ₹${p.price}
-        <del>₹${p.oldPrice}</del>
-      </p>
-      <button onclick="orderWA('${p.title}')">
-        Order on WhatsApp
-      </button>
+      <h3>${p.title}</h3>
+      <p>₹${p.price} <del>₹${p.oldPrice || ""}</del></p>
+      <button onclick="orderWA('${p.title}')">Order on WhatsApp</button>
     `;
 
-    productList.appendChild(div);
+    grid.appendChild(div);
   });
 }
 
-// Category filter
 function filterCat(cat) {
-  currentCat = cat;
-  showProducts();
+  if (cat === "All") {
+    renderProducts(products);
+  } else {
+    renderProducts(products.filter(p => p.category === cat));
+  }
 }
 
-// WhatsApp order
-function orderWA(title) {
-  const number = "919982104506";
-  const msg = `Hello Sunita Garments, I want to order: ${title}`;
-  window.open(`https://wa.me/${number}?text=${encodeURIComponent(msg)}`);
+function orderWA(name) {
+  window.open(
+    `https://wa.me/919982104506?text=I want to order ${name}`,
+    "_blank"
+  );
 }
 
-// Search listener
-if (searchInput) {
-  searchInput.addEventListener("input", showProducts);
-}
+searchInput.addEventListener("input", () => {
+  const value = searchInput.value.toLowerCase();
+  renderProducts(
+    products.filter(p =>
+      p.title.toLowerCase().includes(value)
+    )
+  );
+});
 
-// Initial load
-showProducts();
+renderProducts(products);
