@@ -14,39 +14,36 @@ function showProducts(list) {
   list.forEach((p) => {
     productList.innerHTML += `
       <div class="card">
-        <img src="${p.image}" alt="${p.title}">
-        <h4>${p.title}</h4>
-        <p>₹${p.price} <del>₹${p.oldPrice}</del></p>
+        <img src="${p.image || p.img || ''}">
+        <h4>${p.name || p.title || 'No Name'}</h4>
+        <p>
+          ₹${p.sellingPrice || p.price || ''}
+          <del>₹${p.mrp || p.oldPrice || ''}</del>
+        </p>
       </div>
     `;
   });
 }
 
-// Initial load
 showProducts(products);
 
-// Category filter
 function filterCat(cat) {
   if (cat === "All") {
     showProducts(products);
   } else {
-    const filtered = products.filter(
-      (p) => p.category === cat
-    );
-    showProducts(filtered);
+    showProducts(products.filter(p => p.category === cat));
   }
 }
 
-// Search
 searchInput.addEventListener("input", () => {
-  const value = searchInput.value.toLowerCase();
-  const filtered = products.filter((p) =>
-    p.title.toLowerCase().includes(value)
+  const val = searchInput.value.toLowerCase();
+  showProducts(
+    products.filter(p =>
+      (p.name || p.title || "").toLowerCase().includes(val)
+    )
   );
-  showProducts(filtered);
 });
 
-// WhatsApp Order
 function orderWA() {
   window.open(
     "https://wa.me/919982104506?text=Hello%20I%20want%20to%20order",
