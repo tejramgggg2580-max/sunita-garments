@@ -1,53 +1,55 @@
-const grid = document.getElementById("grid");
-const searchInput = document.getElementById("search");
-
 let products = JSON.parse(localStorage.getItem("products")) || [];
 
-function renderProducts(list) {
-  grid.innerHTML = "";
+const productList = document.getElementById("product-list");
+const searchInput = document.getElementById("search");
+
+function showProducts(list) {
+  productList.innerHTML = "";
 
   if (list.length === 0) {
-    grid.innerHTML = "<p>No products found</p>";
+    productList.innerHTML = "<p>No products found</p>";
     return;
   }
 
-  list.forEach(p => {
-    const div = document.createElement("div");
-    div.className = "card";
-
-    div.innerHTML = `
-      <img src="${p.image}" alt="${p.title}">
-      <h3>${p.title}</h3>
-      <p>₹${p.price} <del>₹${p.oldPrice || ""}</del></p>
-      <button onclick="orderWA('${p.title}')">Order on WhatsApp</button>
+  list.forEach((p) => {
+    productList.innerHTML += `
+      <div class="card">
+        <img src="${p.image}" alt="${p.title}">
+        <h4>${p.title}</h4>
+        <p>₹${p.price} <del>₹${p.oldPrice}</del></p>
+      </div>
     `;
-
-    grid.appendChild(div);
   });
 }
 
+// Initial load
+showProducts(products);
+
+// Category filter
 function filterCat(cat) {
   if (cat === "All") {
-    renderProducts(products);
+    showProducts(products);
   } else {
-    renderProducts(products.filter(p => p.category === cat));
+    const filtered = products.filter(
+      (p) => p.category === cat
+    );
+    showProducts(filtered);
   }
 }
 
-function orderWA(name) {
+// Search
+searchInput.addEventListener("input", () => {
+  const value = searchInput.value.toLowerCase();
+  const filtered = products.filter((p) =>
+    p.title.toLowerCase().includes(value)
+  );
+  showProducts(filtered);
+});
+
+// WhatsApp Order
+function orderWA() {
   window.open(
-    `https://wa.me/919982104506?text=I want to order ${name}`,
+    "https://wa.me/919982104506?text=Hello%20I%20want%20to%20order",
     "_blank"
   );
 }
-
-searchInput.addEventListener("input", () => {
-  const value = searchInput.value.toLowerCase();
-  renderProducts(
-    products.filter(p =>
-      p.title.toLowerCase().includes(value)
-    )
-  );
-});
-
-renderProducts(products);
