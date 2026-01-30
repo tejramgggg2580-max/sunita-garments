@@ -1,26 +1,33 @@
 const PASSWORD = "teju9982";
 
 function login(){
-  const p = document.getElementById("pass").value;
-  if(p === PASSWORD){
-    document.getElementById("loginBox").style.display="none";
+  if(document.getElementById("pass").value === PASSWORD){
+    document.getElementById("login").style.display="none";
     document.getElementById("panel").style.display="block";
-  }else{
-    document.getElementById("msg").innerText="❌ Wrong password";
+  } else {
+    alert("Wrong password");
   }
 }
 
 function add(){
-  let products = JSON.parse(localStorage.getItem("products")) || [];
+  let data = JSON.parse(localStorage.getItem("SUN_PRODUCTS")) || [];
 
-  products.push({
+  let p = {
     name: name.value,
-    cat: cat.value,
+    category: cat.value,
     price: price.value,
     old: old.value,
-    img: img.value
-  });
+    image: img.value
+  };
 
-  localStorage.setItem("products", JSON.stringify(products));
-  document.getElementById("done").innerText="✅ Product Added";
+  if(!p.name || !p.price || !p.image){
+    alert("Name, price & image required");
+    return;
+  }
+
+  data.push(p);
+  localStorage.setItem("SUN_PRODUCTS", JSON.stringify(data));
+  msg.innerText = "✅ Product added";
+
+  name.value = cat.value = price.value = old.value = img.value = "";
 }
