@@ -108,3 +108,17 @@ header input {
   border-radius: 12px;
   display: block;
 }
+#product-list,
+.products,
+.product-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 10px;
+}
+
+.product-card,
+.card {
+  width: 100%;
+  margin: 0;
+}
