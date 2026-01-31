@@ -1,36 +1,67 @@
 const WHATSAPP = "919982104506";
 
-let currentCat = "All";
 let products = JSON.parse(localStorage.getItem("products")) || [];
+let currentCat = "All";
 
 const grid = document.getElementById("grid");
 const search = document.getElementById("search");
 
 function show(){
-  grid.innerHTML="";
-  products
-    .filter(p =>
-      (currentCat==="All" || p.cat===currentCat) &&
-      p.name.toLowerCase().includes(search.value.toLowerCase())
-    )
-    .forEach(p=>{
-      grid.innerHTML += `
+  grid.innerHTML = "";
+
+  const filtered = products.filter(p =>
+    (currentCat === "All" || p.cat === currentCat) &&
+    p.name.toLowerCase().includes(search.value.toLowerCase())
+  );
+
+  if(filtered.length === 0){
+    grid.innerHTML = "<p style='text-align:center'>No products found</p>";
+    return;
+  }
+
+  filtered.forEach(p=>{
+    grid.innerHTML += `
       <div class="card">
-        <img src="${p.img}">
+        <img src="${p.img}" alt="${p.name}">
         <h4>${p.name}</h4>
-        <p>₹${p.price} <del>₹${p.old}</del></p>
+        <p>₹${p.price} <del>₹${p.old || ""}</del></p>
+        <button onclick="singleWA('${p.name}','${p.price}')">
+          Order on WhatsApp
+        </button>
       </div>`;
-    });
+  });
 }
 
-function filterCat(c){
-  currentCat=c;
+function filterCat(cat){
+  currentCat = cat;
   show();
 }
 
+search.addEventListener("input", show);
+
 function orderWA(){
-  window.open(`https://wa.me/${WHATSAPP}?text=Hello Sunita Garments, I want to order`);
+  if(products.length === 0){
+    alert("No products available");
+    return;
+  }
+
+  let msg = "Hello Sunita Garments,\nI want to order:\n";
+  products.forEach(p=>{
+    msg += `- ${p.name} : ₹${p.price}\n`;
+  });
+
+  window.open(
+    "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg),
+    "_blank"
+  );
 }
 
-search.oninput = show;
+function singleWA(name, price){
+  const msg = `Hello Sunita Garments,\nI want to order:\n${name}\nPrice: ₹${price}`;
+  window.open(
+    "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg),
+    "_blank"
+  );
+}
+
 show();
