@@ -32,6 +32,7 @@ function show(){
         </button>
       </div>`;
   });
+  
 }
 
 function filterCat(cat){
@@ -65,5 +66,11 @@ function singleWA(name, price){
     "_blank"
   );
 }
-
 show();
+// 🛒 ADD TO CART
+function addToCart(product){
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push(product);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert("🛒 Product cart me add ho gaya");
+}
