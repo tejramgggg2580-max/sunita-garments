@@ -93,3 +93,19 @@ header input {
   border-radius: 6px;
   font-size: 13px;
 }
+/* Product card size */
+.product-card,
+.card {
+  width: 280px;        /* 👈 chodai (mobile perfect) */
+  margin: auto;
+}
+
+.product-card img,
+.card img,
+.slider img {
+  width: 100%;
+  height: 360px;      
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
