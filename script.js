@@ -10,6 +10,13 @@ const products = [
     img: "https://images.unsplash.com/photo-1520975698519-59c1fdb9a1f7"
   },
   {
+  name: "Korean shirt",
+  category: "Tops",
+  price: 320,
+  oldPrice: 3300,
+  image: "https://raw.githubusercontent.com/tejramgggg2580-max/sunita-garments/refs/heads/main/korean-shirt2.jpg"
+},
+  {
     name: "Cotton Salwar Suit",
     category: "Salwar Suit",
     oldPrice: 2499,
