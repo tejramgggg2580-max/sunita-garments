@@ -7,7 +7,7 @@ const products = [
     category: "Dresses",
     oldPrice: 2999,
     price: 1499,
-    img: "https://images.unsplash.com/photo-1520975698519-59c1fdb9a1f7"
+    image: "https://images.unsplash.com/photo-1520975698519-59c1fdb9a1f7"
   },
   {
   name: "Korean shirt",
@@ -21,7 +21,7 @@ const products = [
     category: "Salwar Suit",
     oldPrice: 2499,
     price: 1299,
-    img: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990"
+    image: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990"
   }
 ];
 
@@ -33,7 +33,7 @@ function showProducts(list) {
 
     grid.innerHTML += `
       <div class="card">
-        <img src="${p.img}">
+        <img src="${p.image}">
         <h4>${p.name}</h4>
         <div class="price">
           <del>₹${p.oldPrice}</del> <span>₹${p.price}</span>
