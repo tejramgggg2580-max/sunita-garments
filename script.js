@@ -19,10 +19,10 @@ const products = [
   {
   name: "Baggy Denim Jeans",
   category: "Tops",
-  oldPrice: 350,
+  oldPrice: 399,
   price: 2999,
   image: "https://raw.githubusercontent.com/tejramgggg2580-max/sunita-garments/main/Light-Wash%20Baggy%20Denim%20Jeans.jpg"
-  }
+  },
   {
     name: "Cotton Salwar Suit",
     category: "Salwar Suit",
